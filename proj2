@@ -1,0 +1,268 @@
+#include <iostream>
+#include <fstream>
+#include "cars.h"
+
+
+
+int main() 
+{
+cars myCarArray[5];
+int userchoice = 7;
+
+
+
+do 
+{
+cout<<"1-Enter input file"<<endl;
+cout<<"2-print out data from input file to terminal"<<endl;
+cout<<"3-print out data from input file to output file"<<endl;
+cout<<"4-sort the cars by ascending price"<<endl;
+cout<<"5- ask user for how many days"<<endl;
+cout<<"6-which car they want to rent"<<endl;
+cout<<"7-exit"<<endl;
+
+cin>> userchoice;
+  switch(userchoice)
+    {
+      case 1:
+      
+ 	readNames(myCarArray);
+	cout<< "fdsfdsf";
+
+      break;
+
+      case 2:
+		printCarsToTerminal( myCarArray);
+      break;
+
+      case 3:
+
+      break;
+
+      case 4:
+
+      break;
+
+      case 5:
+
+      break;
+
+      case 6:
+
+      break;
+
+      case 7:
+
+      break;
+    }
+
+}while (userchoice != 7);
+
+return 0;
+
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#include "cars.h"
+using namespace std;
+
+/*int openFile()
+{
+ifstream infile;
+ofstream outfile;
+char input_file [100], output_file[100];
+cout<< "input filename ";
+cin>> input_file;
+cout<< "Output filename ";
+cin>> output_file;
+//try to open file and check to see if it can open
+infile.open(input_file);  
+if (!infile)
+    {
+        cout<< "unable to open file";
+        return 1;
+    }
+  outfile.open(output_file)  ;
+if (!outfile)
+    {
+        cout<< "unable to open file";
+        return 1;
+    }
+
+return 0;
+}*/
+
+void readNames( struct cars *myCarArray)
+{
+char input_file [100];
+ifstream infile;
+
+cout<< "input filename ";
+cin>> input_file;
+infile.open(input_file);
+
+for ( int i = 0; i < 5;)
+  {
+    infile>>myCarArray[i].year>>myCarArray[i].model>>myCarArray[i].make>>myCarArray[i].price>>myCarArray[i].avail;
+
+
+  }
+ infile.close();
+
+}
+void printCarsToTerminal( struct cars *C)
+{
+
+
+    int numRows = 10;
+    
+    for (int i = 0; i < numRows; i ++)
+        { 
+            cout << i;
+            cout << " ";
+            cout << C[i].avail<<endl;
+        }
+    
+
+}
+void outputfile (ofstream &outfile, char cars[][NUMCOLS])
+{
+
+for (int i =0; i < 10; i++)
+        {
+                outfile<<cars[i]<<endl;
+        }
+
+}
+  void swap( cars& CA, cars&CB)
+{
+  cars temp;
+  temp = CA;
+  CA=CB;
+  CB=temp; 
+
+}
+void swapCars(cars*C)
+{
+
+for(int i = 0; i < 4; i++)
+{
+bool swapped = 0;
+do {
+    
+    if (C[i].price < C[i+1].price)
+    {
+      
+    swap( C[i], C[i+1]);
+    swapped = 1;
+
+    }
+    
+
+}while (!swapped);
+
+
+
+}
+}
+void RentalCarQuery( cars*C)
+{
+int days = 0;
+cout<< " how many days would you like to rent the car for"<<endl;
+cin>>days;
+int i =0;
+swapCars(C);
+cout<< C[i+1].price<<C[i+3].price<<C[i+4].price;
+cout<<C[i+1].price *3<<C[i+3].price * 3<< C[i+4].price *4;
+}
+void rentalCarReserve( cars*C)
+{
+int carind = 0, days = 0;
+cout<< "enter the index of the car you wish to rent";
+cin>> carind;
+cout<< "how many days would you like to rent the car for";
+cin>> days;
+}
+
+/*if( carind == 0)
+{
+
+cout<< " this car is not available";
+
+}
+else 
+{
+
+C[i].price = 0;
+cout<< "you have succesfully rented this car for a total of C[i] * 3 dollars";
+
+
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ifndef CARS_h
+#define CARS_h
+#include<iostream>
+#include <fstream>
+using namespace std;
+
+#define INPUTROW 30
+#define NUMROWS 40
+#define NUMCOLS 40
+struct cars
+{
+int year;
+char make[10];
+char model[10];
+int price;
+int avail;
+};
+
+
+void readNames(struct cars *myCarArray);
+
+void printCarsToTerminal( struct cars *C);
+void outputfile (ofstream &outfile, char cars);
+void swap( cars& CA, cars&CB);
+
+#endif
+
+
+
+
+
+
+
